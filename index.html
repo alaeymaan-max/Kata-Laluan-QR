@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Coffee PassGen Pro (Offline Edition)</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Link FontAwesome telah dibuang sepenuhnya untuk memastikan mod 100% Offline -->
+
+    <!-- Library Lokal (Offline) -->
+    <script src="qrious.min.js"></script>
+    <script src="html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Coffee PassGen</h1>
+            <p>Select your brewing method</p>
+        </header>
+
+        <div class="top-controls">
+            <!-- Toggle Mode -->
+            <div class="radio-group">
+                <label>
+                    <input type="radio" name="mode" value="password" checked id="mode-password"> 
+                    Password
+                </label>
+                <label>
+                    <input type="radio" name="mode" value="passphrase" id="mode-passphrase"> 
+                    Passphrase
+                </label>
+                <label>
+                    <input type="radio" name="mode" value="custom" id="mode-custom"> 
+                    Custom
+                </label>
+            </div>
+            
+            <!-- Dynamic Slider Label -->
+            <div class="slider-section">
+                <span><span id="slider-label">Characters</span>: <b id="length-val">12</b></span>
+                <input type="range" id="length-slider" min="8" max="128" value="12">
+            </div>
+
+            <!-- Options for Password -->
+            <div id="password-options" class="checkbox-group">
+                <label><input type="checkbox" id="upper" checked> A-Z</label>
+                <label><input type="checkbox" id="lower" checked> a-z</label>
+                <label><input type="checkbox" id="numbers" checked> 0-9</label>
+                <label><input type="checkbox" id="symbols" checked> !@#$</label>
+            </div>
+
+            <!-- Options for Passphrase (Hidden by default) -->
+            <div id="passphrase-options" class="checkbox-group hidden">
+                <label><input type="checkbox" id="capitalize" checked> Capitalize</label>
+                <label><input type="checkbox" id="include-num"> Include Number</label>
+                <div class="separator-input">
+                    <span>Sep:</span>
+                    <input type="text" id="separator" value="-" maxlength="1">
+                </div>
+            </div>
+
+            <!-- Options for Custom Input (Hidden by default) -->
+            <div id="custom-options" class="hidden" style="width: 100%;">
+                <input type="text" id="custom-input" placeholder="Type your own password/passphrase..." style="width: 100%; padding: 12px; border: 1px solid var(--beige-soft); border-radius: 12px; font-size: 1rem; box-sizing: border-box; outline: none;">
+            </div>
+        </div>
+
+        <!-- Result Area -->
+        <div class="result-container">
+            <div id="password-display" class="password-box"></div>
+            <div class="info-row">
+                <span>Strength: <strong id="strength-txt">-</strong></span>
+                <span>Crack: <strong id="crack-time">-</strong></span>
+            </div>
+        </div>
+
+        <!-- Buttons Menggunakan Emoji (Gantikan FontAwesome) -->
+        <div class="button-group">
+            <button id="copy-btn" class="btn-primary">
+                📋 Copy
+            </button>
+            <button id="qr-btn" class="btn-outline">
+                🔍 QR Scan
+            </button>
+            <button id="regen-btn" class="btn-outline">
+                🔄
+            </button>
+        </div>
+    </div>
+
+    <!-- Struktur Modal (Pop-up) Premium -->
+    <div id="qr-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Export to Mobile</h3>
+            </div>
+
+            <!-- Bahagian yang akan disimpan sebagai Gambar -->
+            <div id="qr-card-area" class="qr-card">
+                <input type="text" id="account-name" class="card-brand-input" placeholder="Account Name (e.g. Maybank)" maxlength="20">
+                <div class="qr-wrapper">
+                    <canvas id="qr-canvas"></canvas>
+                </div>
+                <div class="card-details">
+                    <input type="text" id="username-input" class="app-label-input" placeholder="Username / ID" maxlength="30">
+                    <div id="display-datetime" class="date-label">Generating...</div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="save-img-btn" class="btn-primary">
+                    💾 Save Card
+                </button>
+                <button id="close-modal" class="btn-outline">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('sw.js')
+            .then(reg => console.log('Service Worker registered successfully'))
+            .catch(err => console.log('Service Worker registration failed:', err));
+        });
+      }
+    </script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+:root {
+    --bg-color: #F8F5F2;
+    --card-bg: #FFFFFF;
+    --coffee-dark: #3C2A21;
+    --coffee-medium: #6F4E37;
+    --coffee-light: #A68A64;
+    --beige-soft: #EDE0D4;
+    --accent-blue: #5D8585;
+    --accent-red: #C06C84;
+}
+
+/* Update Body: Support scroll untuk mod melintang (Landscape) */
+body {
+    background-color: var(--bg-color);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    color: var(--coffee-dark);
+    display: block; /* Tukar dari flex supaya boleh scroll */
+    overflow-y: auto;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Update Container: Lebih fleksibel untuk mobile & tablet */
+.container {
+    background: var(--card-bg);
+    width: 95%;
+    max-width: 500px; /* Lebar dikecilkan untuk estetika mobile yang lebih kemas */
+    margin: 20px auto; /* Centering secara horizontal */
+    padding: 2rem;
+    border-radius: 30px;
+    box-shadow: 0 15px 35px rgba(60, 42, 33, 0.05);
+    box-sizing: border-box;
+}
+
+header { text-align: center; margin-bottom: 1.5rem; }
+h1 { color: var(--coffee-medium); margin-bottom: 5px; font-weight: 700; font-size: 1.6rem; }
+header p { color: var(--coffee-light); font-size: 0.85rem; margin: 0; }
+
+/* Controls Layout */
+.top-controls {
+    background: var(--bg-color);
+    padding: 15px;
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.radio-group, .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Utility Class */
+.hidden { display: none !important; }
+
+.slider-section { display: flex; flex-direction: column; gap: 8px; }
+
+input[type="range"] {
+    -webkit-appearance: none;
+    height: 6px;
+    background: var(--beige-soft);
+    border-radius: 5px;
+    outline: none;
+    width: 100%;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    background: var(--coffee-medium);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.separator-input { display: flex; align-items: center; gap: 8px; }
+.separator-input input {
+    width: 35px;
+    border: 1px solid var(--coffee-light);
+    border-radius: 8px;
+    text-align: center;
+    color: var(--accent-red);
+    font-weight: bold;
+    background: white;
+    padding: 4px;
+}
+
+/* Result Box */
+.result-container {
+    border: 2px solid var(--beige-soft);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 1.5rem;
+    background: white;
+}
+
+.password-box {
+    min-height: 50px;
+    word-break: break-all;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 1.15rem;
+    text-align: center;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+/* Character Coloring */
+.char-num { color: var(--accent-blue); font-weight: bold; }
+.char-sym { color: var(--accent-red); font-weight: bold; }
+.char-text { color: var(--coffee-dark); }
+
+.info-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 0.75rem;
+    color: var(--coffee-light);
+    border-top: 1px solid var(--beige-soft);
+    padding-top: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Bottom Buttons */
+.button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+button {
+    padding: 12px 18px;
+    border-radius: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+.btn-primary { background: var(--coffee-medium); color: white; }
+.btn-primary:hover { background: var(--coffee-dark); }
+
+.btn-outline { 
+    background: transparent;
+    border: 2px solid var(--coffee-medium); 
+    color: var(--coffee-medium); 
+}
+.btn-outline:hover { background: var(--beige-soft); }
+
+button:active { transform: scale(0.95); }
+
+/* =========================================
+   MODAL & PREMIUM QR CARD STYLES
+   ========================================= */
+
+.modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(60, 42, 33, 0.75); 
+    backdrop-filter: blur(6px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal.hidden { opacity: 0; pointer-events: none; }
+
+.modal-content {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 25px;
+    text-align: center;
+    width: 90%;
+    max-width: 350px;
+    max-height: 90vh; /* Pastikan tak terkeluar skrin */
+    overflow-y: auto; /* Boleh scroll dalam modal */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+/* Input di dalam Kad QR */
+.card-brand-input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--coffee-dark);
+    outline: none;
+    margin-bottom: 5px;
+}
+.card-brand-input::placeholder {
+    color: var(--coffee-light);
+    opacity: 0.6;
+}
+
+.app-label-input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--coffee-medium);
+    outline: none;
+    margin-bottom: 5px;
+}
+.app-label-input::placeholder {
+    color: var(--coffee-light);
+    opacity: 0.6;
+}
+
+.qr-card {
+    background: #FFFFFF;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid var(--beige-soft);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+#qr-canvas {
+    width: 160px !important;
+    height: 160px !important;
+}
+
+.app-label { font-size: 1.1rem; font-weight: 700; color: var(--coffee-medium); }
+.date-label { font-size: 0.65rem; color: var(--coffee-light); }
+
+.modal-footer { display: flex; flex-direction: column; gap: 8px; }
+#save-img-btn { background: var(--accent-blue); width: 100%; justify-content: center; }
+#close-modal { width: 100%; justify-content: center; }
+
+/* =========================================
+   MEDIA QUERIES (Landscape/Small Screens)
+   ========================================= */
+
+@media (max-height: 600px) {
+    .container {
+        margin: 10px auto;
+        padding: 1.2rem;
+    }
+    header { margin-bottom: 1rem; }
+    h1 { font-size: 1.3rem; }
+    .top-controls { padding: 10px; gap: 10px; }
+    .result-container { padding: 12px; margin-bottom: 1rem; }
+    .password-box { font-size: 1rem; min-height: 40px; }
+    .qr-card { padding: 15px; gap: 8px; }
+    #qr-canvas { width: 130px !important; height: 130px !important; }
+}
+
+/* Tablet Layout */
+@media (min-width: 768px) {
+    .container { max-width: 550px; padding: 3rem; }
+}
